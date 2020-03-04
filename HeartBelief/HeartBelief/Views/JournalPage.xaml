@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:HeartBelief.Helpers"
+             xmlns:extensions="clr-namespace:HeartBelief.Helpers.Extensions"
+             x:Class="HeartBelief.Views.JournalPage"
+             x:Name="JournalContent">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New Entry" Clicked="AddItem_Clicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="UWP" Value="add.png"/>
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <RelativeLayout Padding="0">
+        <!-- Background -->
+        <Image
+            Aspect="AspectFill"
+            Source="{extensions:ImageResource HeartBelief.Images.journal_background.png  }"
+            RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+            RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+        </Image>
+        <StackLayout>
+            <ListView x:Name="JournalListView"
+            ItemsSource="{Binding Entries}"
+            CachingStrategy="RecycleElement"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            HasUnevenRows="true"
+            RefreshCommand="{Binding LoadItemsCommand}" 
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Command="{Binding BindingContext.DeleteEntryCommand, Source={x:Reference JournalContent} }"  
+                                          CommandParameter="{Binding .}" 
+                                          Text="Delete" IsDestructive="True">
+                                </MenuItem>
+                            </ViewCell.ContextActions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Image  Grid.Column="0" Grid.Row="0" 
+                                        Aspect="AspectFill"
+                                        Source="{extensions:ImageResource HeartBelief.Images.journal_oldbelief_header.png  }"
+                                        RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                                        RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                                </Image>
+
+                                <Editor Grid.Column="0" Grid.Row="1" Text="{Binding OldBelief, Mode=TwoWay}" 
+                                    VerticalOptions="StartAndExpand" AutoSize="TextChanges"
+                                    FontSize="Micro" Placeholder="Type to enter Text" BackgroundColor="#b96d09">
+
+                                    <Editor.Behaviors>
+                                        <helpers:EventToCommandBehavior EventName="Completed"
+                                        Command="{Binding BindingContext.EntryCompletedCommand, Source={x:Reference JournalContent} }"
+                                        CommandParameter="{Binding .}"/>
+                                    </Editor.Behaviors>
+                                </Editor>
+
+                                <Image  Grid.Column="2" Grid.Row="0" 
+                                        Aspect="AspectFill"
+                                        Source="{extensions:ImageResource HeartBelief.Images.journal_newbelief_header.png  }"
+                                        RelativeLayout.WidthConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Width}"
+                                        RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}">
+                                </Image>
+
+                                <Editor Grid.Column="2" Grid.Row="1" Text="{Binding NewBelief, Mode=TwoWay}" 
+                                    VerticalOptions="StartAndExpand" AutoSize="TextChanges"
+                                    FontSize="Micro" Placeholder="Type to enter Text" BackgroundColor="#0aaf0b">
+                                </Editor>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </StackLayout>
+    </RelativeLayout>
+    
+    
+</ContentPage>

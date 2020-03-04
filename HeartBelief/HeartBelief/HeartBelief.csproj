@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\journal_background.png" />
+    <None Remove="Images\journal_guide.png" />
+    <None Remove="Images\journal_landing.png" />
+    <None Remove="Images\journal_newbelief_header.png" />
+    <None Remove="Images\journal_oldbelief_header.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\journal_background.png" />
+    <EmbeddedResource Include="Images\journal_guide.png" />
+    <EmbeddedResource Include="Images\journal_landing.png" />
+    <EmbeddedResource Include="Images\journal_newbelief_header.png" />
+    <EmbeddedResource Include="Images\journal_oldbelief_header.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ansuria.XFGloss" Version="1.1.3" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\JournalPage.xaml.cs">
+      <DependentUpon>JournalPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\JournalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\Converters\" />
+  </ItemGroup>
+</Project>
