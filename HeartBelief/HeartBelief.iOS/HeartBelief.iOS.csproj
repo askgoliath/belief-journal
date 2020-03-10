@@ -56,6 +56,7 @@
     <CodesignProvision />
     <CodesignExtraArgs />
     <CodesignResourceRules />
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -144,7 +145,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\HeartBelief\HeartBelief.csproj">
-      <Project>{0EADE9A4-2293-4EB8-9975-83062E3D3E1C}</Project>
+      <Project>{1BA3526A-99D7-424A-BAF1-AA0AC9CA48A9}</Project>
       <Name>HeartBelief</Name>
     </ProjectReference>
   </ItemGroup>

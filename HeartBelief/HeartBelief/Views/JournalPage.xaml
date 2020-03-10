@@ -30,7 +30,9 @@
             CachingStrategy="RecycleElement"
             VerticalOptions="FillAndExpand"
             HorizontalOptions="FillAndExpand"
+            
             HasUnevenRows="true"
+                      RowHeight="-1"
             RefreshCommand="{Binding LoadItemsCommand}" 
             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
 
@@ -45,9 +47,9 @@
                             </ViewCell.ContextActions>
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition  />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition  />
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
