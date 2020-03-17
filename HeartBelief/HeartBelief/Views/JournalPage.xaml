@@ -25,27 +25,24 @@
             RelativeLayout.HeightConstraint= "{ConstraintExpression Type=RelativeToParent, Property=Height}">
         </Image>
         <StackLayout>
-            <ListView x:Name="JournalListView"
+            <CollectionView x:Name="JournalListView"
             ItemsSource="{Binding Entries}"
-            CachingStrategy="RecycleElement"
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            
-            HasUnevenRows="true"
-                      RowHeight="-1"
-            RefreshCommand="{Binding LoadItemsCommand}" 
-            IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-
-                <ListView.ItemTemplate>
+            HorizontalOptions="FillAndExpand">
+               
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Command="{Binding BindingContext.DeleteEntryCommand, Source={x:Reference JournalContent} }"  
-                                          CommandParameter="{Binding .}" 
-                                          Text="Delete" IsDestructive="True">
-                                </MenuItem>
-                            </ViewCell.ContextActions>
-                            <Grid>
+                        <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Delete"
+                                           BackgroundColor="LightPink"
+                                           Command="{Binding BindingContext.DeleteEntryCommand,
+                                                        Source={x:Reference JournalContent} }"  
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                           <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition  />
                                     <ColumnDefinition Width="Auto" />
@@ -54,7 +51,7 @@
 
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="30" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <Image  Grid.Column="0" Grid.Row="0" 
@@ -87,11 +84,11 @@
                                     FontSize="Micro" Placeholder="Type to enter Text" BackgroundColor="#0aaf0b">
                                 </Editor>
                             </Grid>
-                        </ViewCell>
+                        </SwipeView>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </CollectionView.ItemTemplate>
 
-            </ListView>
+            </CollectionView>
         </StackLayout>
     </RelativeLayout>
     
